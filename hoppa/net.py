@@ -33,6 +33,9 @@ class NetHandlerThread(Thread):
         req = self.conn.recv(1024)
 
         if detect_is_http(req):
+            log.debug(
+                "http header detected! routing as http request...", context="nhthread"
+            )
             self.handle_http_request(req)
 
         self.conn.close()
