@@ -10,6 +10,7 @@ MAGENTA = "35"
 CYAN = "36"
 
 
+# NOTE: This function's code isnt good, but it just has to generate loggers
 def generate_logger(name: str, color: str, conditional: bool = True):
     def logger(*args, context=None, **kwargs):
         caller_frame = inspect.currentframe().f_back
