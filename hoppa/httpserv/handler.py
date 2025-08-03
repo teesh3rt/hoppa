@@ -1,23 +1,6 @@
 import re
-import dataclasses
+from httpserv.utils import HTTPResponse, HTTPResponseType
 import log
-
-
-@dataclasses.dataclass
-class HTTPResponseRaw:
-    version: str
-    code: int
-    reason: str
-    headers: dict[str, str]
-    body: str
-
-    def __repr__(self) -> str:
-        headers = ""
-        for k, v in self.headers:
-            headers += f"{k}: {v}\r\n"
-
-        resp = f"{self.version} {self.code} {self.reason}\r\n{headers}\r\n{self.body}"
-        return resp
 
 
 class HTTPHandler:
@@ -45,5 +28,5 @@ class HTTPHandler:
 
     def handle(self) -> bytes:
         log.info(f"{self.method} {self.uri}", context="httphandler")
-        RESPONSE = HTTPResponseRaw(self.http_ver, 200, "OK", {}, "Hello, HTTP!")
+        RESPONSE = HTTPResponse(HTTPResponseType.OK, "Hello, HTTP!")
         return str(RESPONSE).encode("utf-8")
