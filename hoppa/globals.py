@@ -1,0 +1,3 @@
+VERSION = "0.0.1"
+VERSION_CODENAME = "silverfish"
+DEBUGGING_ENABLED = False
