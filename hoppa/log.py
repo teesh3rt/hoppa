@@ -1,5 +1,5 @@
 import inspect
-from globals import DEBUGGING_ENABLED
+from globals import DEBUGGING_ENABLED, SHOW_LOC_IN_CONTEXT
 
 GRAY = "90"
 RED = "31"
@@ -16,9 +16,14 @@ def generate_logger(name: str, color: str, conditional: bool = True):
         caller_file = caller_frame.f_code.co_filename
         caller_line = caller_frame.f_lineno
         if context is None:
+            if not SHOW_LOC_IN_CONTEXT:
+                context = ""
+
             context = f"{caller_file}:{caller_line}"
         else:
-            context = f"{context} ({caller_file}:{caller_line})"
+            context = f"{context}"
+            if SHOW_LOC_IN_CONTEXT:
+                context += f" ({caller_file}:{caller_line})"
         print(
             f"\033[{color}m{name}\033[0m",
             f"\033[{GRAY}m{context}\033[0m",
